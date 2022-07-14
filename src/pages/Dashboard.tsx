@@ -2,7 +2,7 @@ import React from 'react';
 import {AppShell, Text, useMantineTheme,} from '@mantine/core';
 import ShellHeader from "../components/shared/mantine/ShellHeader";
 import ShellFooter from "../components/shared/mantine/ShellFooter";
-import ShellNavbar from "../components/shared/mantine/ShellNavbar";
+import ShellNavbar from "../components/shared/mantine/navbar/ShellNavbar";
 import {Outlet} from "react-router-dom";
 
 const Dashboard = () => {
