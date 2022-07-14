@@ -2,6 +2,7 @@ import {createSlice} from '@reduxjs/toolkit'
 import {InitialPokemonState} from "../../types/IPokemon";
 import {fetchStatus} from "../../types/generalTypes";
 import {getPokemonThunk, getRawPokemonListThunk} from "../../services/pokemonThunk";
+import {RootState} from "../app/store";
 
 const initialState: InitialPokemonState = {
     pokemonList: [],
@@ -36,7 +37,10 @@ const pokemonSlice = createSlice({
             state.status = fetchStatus.REJECTED
         })
         builder.addCase(getPokemonThunk.fulfilled, (state, action) => {
-            state.pokemonList.push(action.payload)
+            const found = state.pokemonList.find(p => p.id === action.payload.id)
+            if (!found) {
+                state.pokemonList.push(action.payload)
+            }
             state.status = fetchStatus.FULFILLED
         })
     },
@@ -45,3 +49,8 @@ const pokemonSlice = createSlice({
 export default pokemonSlice.reducer
 
 // selectors
+export const selectPokemonList = () => (state: RootState) => state.pokemon.pokemonList
+export const selectPokemonByName = (name: string) => (state: RootState) => state.pokemon.pokemonList.find(p => p.name === name)
+export const selectRawList = () => (state: RootState) => state.pokemon.rawList
+export const selectPokemonStatus = () => (state: RootState) => state.pokemon.status
+export const selectPokemonError = () => (state: RootState) => state.pokemon.error

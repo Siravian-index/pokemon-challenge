@@ -8,7 +8,7 @@ const ENDPOINT = 'https://pokeapi.co/api/v2/'
 export const getRawPokemonListThunk = createAsyncThunk("rawList", async (limit: number = 50) => {
     const response = await fetch(`${ENDPOINT}pokemon?limit=${limit}`)
     const data = await response.json()
-    const rawList = data.result
+    const rawList = data.results
     return rawList as IRawResponse[]
 })
 

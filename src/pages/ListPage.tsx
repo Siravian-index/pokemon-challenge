@@ -1,9 +1,12 @@
 import * as React from "react"
+import PokemonList from "../components/pokemonList/PokemonList";
 
 interface IProps {}
 
 const ListPage : React.FC<IProps> = () => {
-    return <>Render pokemon list card</>
+    return <>
+        <PokemonList/>
+    </>
 }
 
 export default ListPage
