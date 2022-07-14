@@ -26,7 +26,6 @@ const pokemonSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        //raw list response
         builder.addCase(getPokemonListThunk.pending, (state) => {
             state.status = fetchStatus.PENDING
         })
