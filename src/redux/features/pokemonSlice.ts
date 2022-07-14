@@ -1,12 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {InitialPokemonState} from "../../types/IPokemon";
 import {fetchStatus} from "../../types/generalTypes";
-import {getPokemonThunk, getRawPokemonListThunk} from "../../services/pokemonThunk";
 import {RootState} from "../app/store";
+import {getPokemonListThunk} from "../../services/pokemonThunk";
 
 const initialState: InitialPokemonState = {
     pokemonList: [],
-    rawList: [],
     status: fetchStatus.IDLE,
     error: null,
 }
@@ -17,30 +16,15 @@ const pokemonSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         //raw list response
-        builder.addCase(getRawPokemonListThunk.pending, (state) => {
+        builder.addCase(getPokemonListThunk.pending, (state) => {
             state.status = fetchStatus.PENDING
         })
-        builder.addCase(getRawPokemonListThunk.rejected, (state) => {
+        builder.addCase(getPokemonListThunk.rejected, (state) => {
             state.error = "Something went wrong on initial fetch."
             state.status = fetchStatus.REJECTED
         })
-        builder.addCase(getRawPokemonListThunk.fulfilled, (state, action) => {
-            state.rawList = action.payload
-            state.status = fetchStatus.FULFILLED
-        })
-    //    single pokemon
-        builder.addCase(getPokemonThunk.pending, (state) => {
-            state.status = fetchStatus.PENDING
-        })
-        builder.addCase(getPokemonThunk.rejected, (state) => {
-            state.error = "Something went wrong while fetching a particular pokemon."
-            state.status = fetchStatus.REJECTED
-        })
-        builder.addCase(getPokemonThunk.fulfilled, (state, action) => {
-            const found = state.pokemonList.find(p => p.id === action.payload.id)
-            if (!found) {
-                state.pokemonList.push(action.payload)
-            }
+        builder.addCase(getPokemonListThunk.fulfilled, (state, action) => {
+            state.pokemonList = action.payload
             state.status = fetchStatus.FULFILLED
         })
     },
@@ -51,6 +35,5 @@ export default pokemonSlice.reducer
 // selectors
 export const selectPokemonList = () => (state: RootState) => state.pokemon.pokemonList
 export const selectPokemonByName = (name: string) => (state: RootState) => state.pokemon.pokemonList.find(p => p.name === name)
-export const selectRawList = () => (state: RootState) => state.pokemon.rawList
 export const selectPokemonStatus = () => (state: RootState) => state.pokemon.status
 export const selectPokemonError = () => (state: RootState) => state.pokemon.error

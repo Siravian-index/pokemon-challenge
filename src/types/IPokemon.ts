@@ -2,7 +2,6 @@ import {ErrorType, fetchStatus, IRawResponse} from "./generalTypes";
 
 export interface InitialPokemonState {
   pokemonList: IPokemon[]
-  rawList: IRawResponse[]
   error: ErrorType
   status: fetchStatus
 }

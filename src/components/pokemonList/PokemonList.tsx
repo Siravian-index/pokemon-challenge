@@ -1,26 +1,37 @@
 import * as React from "react"
-import {useEffect} from "react";
+import {useEffect} from "react"
 import {useAppDispatch} from "../../redux/app/store";
 import {useSelector} from "react-redux";
-import {selectPokemonStatus, selectRawList} from "../../redux/features/pokemonSlice";
+import {selectPokemonError, selectPokemonList, selectPokemonStatus} from "../../redux/features/pokemonSlice";
 import {fetchStatus} from "../../types/generalTypes";
-import {getRawPokemonListThunk} from "../../services/pokemonThunk";
-import PokemonCard from "./PokemonCard";
+import {getPokemonListThunk} from "../../services/pokemonThunk";
 
-interface IProps {}
+interface IProps {
+}
+
+// const GridPokemon = (rawList: IRawResponse[]) => {
+//     return rawList.map(raw => <PokemonCard key={raw.name} raw={raw} />)
+// }
 
 const PokemonList : React.FC<IProps> = () => {
+    //fix fetching pokemon DONE
+    //make pokemon card
+    //make func to display type with colors
+    //add favorite action
+    //work on search bar
+    //login?
+
     const POKEMON_LIMIT = 50
     const dispatch = useAppDispatch()
+    const pokemonList = useSelector(selectPokemonList())
     const status = useSelector(selectPokemonStatus())
-    const rawList = useSelector(selectRawList())
+    const error = useSelector(selectPokemonError())
     useEffect(() => {
         if (status === fetchStatus.IDLE) {
-            dispatch(getRawPokemonListThunk(POKEMON_LIMIT))
+            dispatch(getPokemonListThunk(5))
         }
     }, [dispatch])
     return <>
-        {rawList.map(raw => <PokemonCard key={raw.name} raw={raw} />)}
     </>
 }
 
