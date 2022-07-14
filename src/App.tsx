@@ -8,7 +8,7 @@ import {selectPokemonStatus} from "./redux/features/pokemonSlice";
 import {useAppDispatch} from "./redux/app/store";
 
 function App() {
-    const POKEMON_LIMIT = 5
+    const POKEMON_LIMIT = 50
     const dispatch = useAppDispatch()
     const status = useSelector(selectPokemonStatus())
     useEffect(() => {

@@ -6,10 +6,7 @@ import FetchErrorComponent from "../shared/FetchErrorComponent";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import PokemonGrid from "./PokemonGrid";
 
-const PokemonList : React.FC = () => {
-    //work on search bar
-    //login?
-
+const PokemonList: React.FC = () => {
     const pokemonList = useSelector(selectPokemonList())
     const status = useSelector(selectPokemonStatus())
     const error = useSelector(selectPokemonError())

@@ -20,7 +20,7 @@ const PokemonCard: React.FC<IProps> = ({pokemon}) => {
 
     const handleNavigate = () => {
         if (!inPageDetails) {
-            navigate(pokemon.name)
+            navigate(`/${pokemon.name}`)
         }
     }
 
