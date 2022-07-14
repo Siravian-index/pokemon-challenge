@@ -1,7 +1,8 @@
 import * as React from "react"
-import {Header, Title} from "@mantine/core";
+import {Box, Header, Title} from "@mantine/core";
 import pokeball from '../../../assets/pokeball.svg'
 import ToggleDarkButton from "./ToggleDarkButton";
+import {useNavigate} from "react-router-dom";
 
 interface IProps {
 }
@@ -10,11 +11,16 @@ const PokeballIcon = () => {
     return <img src={pokeball} alt="Pokeball logo"/>
 }
 
+
 const MainTitle = () => {
-    return <div style={{display: 'flex', alignItems: 'center'}}>
+    const navigate = useNavigate()
+    const handleClick = () => navigate('/')
+    return <Box style={{display: 'flex', alignItems: 'center'}} onClick={handleClick} sx={() => ({
+        '&:hover': {cursor: "pointer"},
+    })}>
         <PokeballIcon/>
         <Title>Pokedex</Title>
-    </div>
+    </Box>
 }
 
 const ShellHeader: React.FC<IProps> = () => {

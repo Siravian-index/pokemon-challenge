@@ -17,7 +17,7 @@ const ListFavorites: React.FC<IProps> = () => {
     return <>
         {error && <FetchErrorComponent error={error}/>}
         {status === fetchStatus.PENDING && <LoadingSpinner/>}
-        {pokemonList.length > 0 ? <PokemonGrid list={pokemonList}/> : <EmptyPokemonList/>}
+        {pokemonList.length > 0 ? <PokemonGrid list={pokemonList}/> : <EmptyPokemonList text='You do not have any favorites, yet...'/>}
     </>
 }
 

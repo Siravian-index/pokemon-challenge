@@ -1,11 +1,14 @@
 import * as React from "react"
 import {Center, Text} from "@mantine/core";
 
-interface IProps {}
+interface IProps {
+    text?: string
+}
 
-const EmptyPokemonList : React.FC<IProps> = () => {
+const EmptyPokemonList: React.FC<IProps> = ({text}) => {
+    const defaultText = "There are not pokemon here, yet..."
     return <Center>
-        <Text>There are not pokemon here, yet...</Text>
+        <Text color='dimmed'>{text || defaultText}</Text>
     </Center>
 }
 
