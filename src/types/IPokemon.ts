@@ -11,11 +11,7 @@ export interface IPokemon {
   id: number
   name: string
   sprite: string
-  types: {
-    type: {
-      name: string
-    }[]
-  }
+  types: string[]
   weight: number
   isFavorite: boolean
 }

@@ -9,7 +9,7 @@ const getPokemon = async (raw: IRawResponse) => {
     const data = await response.json()
     const pokemon: IPokemon = {
         name: data.name,
-        types: data.types,
+        types: data.types.map((obj: { type: { name: string } }) => obj.type.name),
         id: data.id,
         isFavorite: false,
         sprite: data.sprites.front_default,

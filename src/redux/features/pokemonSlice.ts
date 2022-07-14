@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit'
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {InitialPokemonState} from "../../types/IPokemon";
 import {fetchStatus} from "../../types/generalTypes";
 import {RootState} from "../app/store";
@@ -13,7 +13,11 @@ const initialState: InitialPokemonState = {
 const pokemonSlice = createSlice({
     name: 'pokemon',
     initialState,
-    reducers: {},
+    reducers: {
+        toggleFavorite: (state, action:PayloadAction<number>) => {
+            state.pokemonList = state.pokemonList.map(pokemon => pokemon.id === action.payload ? {...pokemon, isFavorite: !pokemon.isFavorite}: pokemon)
+        }
+    },
     extraReducers: (builder) => {
         //raw list response
         builder.addCase(getPokemonListThunk.pending, (state) => {
@@ -31,6 +35,9 @@ const pokemonSlice = createSlice({
 })
 
 export default pokemonSlice.reducer
+
+//actions
+export const {toggleFavorite} = pokemonSlice.actions
 
 // selectors
 export const selectPokemonList = () => (state: RootState) => state.pokemon.pokemonList

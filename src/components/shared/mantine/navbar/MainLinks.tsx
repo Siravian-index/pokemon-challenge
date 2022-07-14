@@ -1,6 +1,6 @@
 import React from 'react';
 import {ListDetails, Search, Star} from 'tabler-icons-react';
-import {ThemeIcon, UnstyledButton, useMantineTheme} from '@mantine/core';
+import {ActionIcon, ThemeIcon, UnstyledButton, useMantineTheme} from '@mantine/core';
 import {useNavigate} from "react-router-dom";
 
 interface MainLinkProps {

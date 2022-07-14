@@ -5,15 +5,24 @@ import {useSelector} from "react-redux";
 import {selectPokemonError, selectPokemonList, selectPokemonStatus} from "../../redux/features/pokemonSlice";
 import {fetchStatus} from "../../types/generalTypes";
 import {getPokemonListThunk} from "../../services/pokemonThunk";
+import FetchErrorComponent from "../shared/FetchErrorComponent";
+import {IPokemon} from "../../types/IPokemon";
+import PokemonCard from "./PokemonCard";
+import {Grid} from "@mantine/core";
+import LoadingSpinner from "../shared/LoadingSpinner";
 
-interface IProps {
+interface IGridPokemonProps {
+    list: IPokemon[]
 }
 
-// const GridPokemon = (rawList: IRawResponse[]) => {
-//     return rawList.map(raw => <PokemonCard key={raw.name} raw={raw} />)
-// }
+const GridPokemon: React.FC<IGridPokemonProps> = ({list}) => {
+    const content = list.map(pokemon => <PokemonCard pokemon={pokemon} key={pokemon.id}/>)
+    return <Grid>
+        {content}
+    </Grid>
+}
 
-const PokemonList : React.FC<IProps> = () => {
+const PokemonList : React.FC = () => {
     //fix fetching pokemon DONE
     //make pokemon card
     //make func to display type with colors
@@ -28,10 +37,15 @@ const PokemonList : React.FC<IProps> = () => {
     const error = useSelector(selectPokemonError())
     useEffect(() => {
         if (status === fetchStatus.IDLE) {
-            dispatch(getPokemonListThunk(5))
+            dispatch(getPokemonListThunk(50))
         }
     }, [dispatch])
+
+
     return <>
+        {error && <FetchErrorComponent error={error}/>}
+        {status === fetchStatus.PENDING && <LoadingSpinner/>}
+        {pokemonList.length > 0 && <GridPokemon list={pokemonList}/>}
     </>
 }
 
