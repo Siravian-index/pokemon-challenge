@@ -4,6 +4,7 @@ export interface InitialPokemonState {
   pokemonList: IPokemon[]
   error: ErrorType
   status: fetchStatus
+  filter: string
 }
 
 

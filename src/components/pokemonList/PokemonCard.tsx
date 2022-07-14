@@ -5,6 +5,7 @@ import {ActionIcon, Badge, Button, Card, Center, Grid, Group, Image, Text, Title
 import {Star, StarOff} from "tabler-icons-react";
 import {toggleFavorite} from "../../redux/features/pokemonSlice";
 import {useLocation, useNavigate} from "react-router-dom";
+import {capitalizeFirstLetterOf} from "../../utils/stringUtils";
 
 interface IProps {
     pokemon: IPokemon
@@ -35,8 +36,7 @@ const PokemonCard: React.FC<IProps> = ({pokemon}) => {
                     <Image src={pokemon.sprite} alt={`${pokemon.name} sprite`} width={300}/>
                 </Center>
             </Card.Section>
-            <Title order={3} align='center'>{pokemon.name}</Title>
-
+            <Title order={3} align='center'>{capitalizeFirstLetterOf(pokemon.name)}</Title>
             <Group position="center" style={{marginBottom: 5, marginTop: theme.spacing.sm}}>
                 <PokemonTypes pokemon={pokemon}/>
             </Group>

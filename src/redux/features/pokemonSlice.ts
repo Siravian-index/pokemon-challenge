@@ -6,6 +6,7 @@ import {getPokemonListThunk} from "../../services/pokemonThunk";
 
 const initialState: InitialPokemonState = {
     pokemonList: [],
+    filter: '',
     status: fetchStatus.IDLE,
     error: null,
 }
@@ -19,7 +20,10 @@ const pokemonSlice = createSlice({
                 ...pokemon,
                 isFavorite: !pokemon.isFavorite
             } : pokemon)
-        }
+        },
+        updateFilter: (state, action: PayloadAction<string>) => {
+            state.filter = action.payload
+        },
     },
     extraReducers: (builder) => {
         //raw list response
@@ -40,11 +44,12 @@ const pokemonSlice = createSlice({
 export default pokemonSlice.reducer
 
 //actions
-export const {toggleFavorite} = pokemonSlice.actions
+export const {toggleFavorite, updateFilter} = pokemonSlice.actions
 
 // selectors
 export const selectPokemonList = () => (state: RootState) => state.pokemon.pokemonList
 export const selectPokemonByName = (name: string) => (state: RootState) => state.pokemon.pokemonList.filter(p => p.name === name)
 export const selectPokemonFavorite = () => (state: RootState) => state.pokemon.pokemonList.filter(p => p.isFavorite)
+export const selectPokemonFilter = () => (state: RootState) => state.pokemon.filter
 export const selectPokemonStatus = () => (state: RootState) => state.pokemon.status
 export const selectPokemonError = () => (state: RootState) => state.pokemon.error
