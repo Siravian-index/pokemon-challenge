@@ -14,8 +14,11 @@ const pokemonSlice = createSlice({
     name: 'pokemon',
     initialState,
     reducers: {
-        toggleFavorite: (state, action:PayloadAction<number>) => {
-            state.pokemonList = state.pokemonList.map(pokemon => pokemon.id === action.payload ? {...pokemon, isFavorite: !pokemon.isFavorite}: pokemon)
+        toggleFavorite: (state, action: PayloadAction<number>) => {
+            state.pokemonList = state.pokemonList.map(pokemon => pokemon.id === action.payload ? {
+                ...pokemon,
+                isFavorite: !pokemon.isFavorite
+            } : pokemon)
         }
     },
     extraReducers: (builder) => {
@@ -42,5 +45,6 @@ export const {toggleFavorite} = pokemonSlice.actions
 // selectors
 export const selectPokemonList = () => (state: RootState) => state.pokemon.pokemonList
 export const selectPokemonByName = (name: string) => (state: RootState) => state.pokemon.pokemonList.find(p => p.name === name)
+export const selectPokemonFavorite = () => (state: RootState) => state.pokemon.pokemonList.filter(p => p.isFavorite)
 export const selectPokemonStatus = () => (state: RootState) => state.pokemon.status
 export const selectPokemonError = () => (state: RootState) => state.pokemon.error

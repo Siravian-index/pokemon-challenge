@@ -1,9 +1,12 @@
 import * as React from "react"
+import ListFavorites from "../components/pokemonFavorites/ListFavorites";
 
 interface IProps {}
 
 const FavoritePage : React.FC<IProps> = () => {
-    return <>Favorite pokemon</>
+    return <>
+        <ListFavorites/>
+    </>
 }
 
 export default FavoritePage

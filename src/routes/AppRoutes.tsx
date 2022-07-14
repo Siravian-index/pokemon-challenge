@@ -5,17 +5,18 @@ import Dashboard from "../pages/Dashboard";
 import SearchPage from "../pages/SearchPage";
 import FavoritePage from "../pages/FavoritePage";
 import ListPage from "../pages/ListPage";
+import PokemonPage from "../pages/PokemonPage";
 
-interface IAppRoutesProps {}
+interface IProps {}
 
-const AppRoutes: React.FunctionComponent<IAppRoutesProps> = (props) => {
+const AppRoutes: React.FC<IProps> = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/login' element={<LoginPage />} />
         <Route path='/' element={<Dashboard/>} >
-            {/* dashboard and children */}
             <Route index element={<ListPage/>}/>
+            <Route path=':id' element={<PokemonPage/>}/>
             <Route path='search' element={<SearchPage/>}/>
             <Route path='favorite' element={<FavoritePage/>}/>
         </Route>
