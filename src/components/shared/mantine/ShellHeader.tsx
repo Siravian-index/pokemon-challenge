@@ -3,6 +3,7 @@ import {Box, Header, Title} from "@mantine/core";
 import pokeball from '../../../assets/pokeball.svg'
 import ToggleDarkButton from "./ToggleDarkButton";
 import {useNavigate} from "react-router-dom";
+import MadeWithLove from "../MadeWithLove";
 
 interface IProps {
 }
@@ -23,11 +24,18 @@ const MainTitle = () => {
     </Box>
 }
 
+const LeftSection = () => {
+    return <div style={{display: 'flex', alignItems: 'center'}}>
+        <MadeWithLove/>
+        <ToggleDarkButton/>
+    </div>
+}
+
 const ShellHeader: React.FC<IProps> = () => {
     return <Header height={70} p="md">
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '100%'}}>
             <MainTitle/>
-            <ToggleDarkButton/>
+            <LeftSection/>
         </div>
     </Header>
 }

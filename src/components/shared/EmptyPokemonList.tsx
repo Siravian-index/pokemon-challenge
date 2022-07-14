@@ -1,5 +1,6 @@
 import * as React from "react"
 import {Center, Text} from "@mantine/core";
+import MadeWithLove from "./MadeWithLove";
 
 interface IProps {
     text?: string
