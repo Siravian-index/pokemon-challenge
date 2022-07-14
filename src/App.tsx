@@ -1,13 +1,8 @@
-import { useSelector } from 'react-redux'
-import { selectIsLogged } from './redux/features/loginSlice'
 import AppRoutes from './routes/AppRoutes'
 import {useHotkeys, useLocalStorage} from "@mantine/hooks";
 import {ColorScheme, ColorSchemeProvider, MantineProvider} from "@mantine/core";
 
 function App() {
-  const isLogged = useSelector(selectIsLogged())
-  console.log(isLogged)
-
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: 'mantine-color-scheme',
     defaultValue: 'light',
