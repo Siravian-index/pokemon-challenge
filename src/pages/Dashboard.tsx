@@ -5,13 +5,13 @@ import ShellFooter from "../components/shared/mantine/ShellFooter";
 import ShellNavbar from "../components/shared/mantine/navbar/ShellNavbar";
 import {Outlet, useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {selectIsLogged} from "../redux/features/loginSlice";
+import {selectUser} from "../redux/features/loginSlice";
 
 const Dashboard = () => {
     const theme = useMantineTheme()
     const LOGIN = '/login'
     const navigate = useNavigate()
-    const isLogged = useSelector(selectIsLogged())
+    const isLogged = useSelector(selectUser())
 
     useEffect(() => {
         if (!isLogged) {

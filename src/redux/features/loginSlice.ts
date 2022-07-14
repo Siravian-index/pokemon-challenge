@@ -1,24 +1,34 @@
 import {RootState} from './../app/store'
-import {createSlice} from '@reduxjs/toolkit'
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {ILoggedState, IUser} from "../../types/IUser";
 
-const initialState = {
-  isLogged: false,
+
+const initialState: ILoggedState = {
+  user: null,
+  error: null
 }
 
 const loginSlice = createSlice({
   name: 'login',
   initialState,
   reducers: {
-    toggleIsLogged: (state) => {
-      state.isLogged = !state.isLogged
+    loginUser: (state, action:PayloadAction<IUser>) => {
+      state.user = action.payload
     },
+    logoutUser: (state) => {
+      state.user = null
+    },
+    setLoginError: (state, action:PayloadAction<string>) => {
+      state.error = action.payload
+    }
   },
 })
 
 export default loginSlice.reducer
 
-export const {toggleIsLogged} = loginSlice.actions
+export const {loginUser, logoutUser, setLoginError} = loginSlice.actions
 
 
 // selectors
-export const selectIsLogged = () => (state: RootState) => state.login.isLogged
+export const selectUser = () => (state: RootState) => state.login.user
+export const selectUserError = () => (state: RootState) => state.login.error

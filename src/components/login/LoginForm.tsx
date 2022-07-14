@@ -1,19 +1,19 @@
 import * as React from "react"
-import {Button, Center, Container, Group, Title} from "@mantine/core";
-import {useAppDispatch} from "../../redux/app/store";
-import {selectIsLogged, toggleIsLogged} from "../../redux/features/loginSlice";
+import {useEffect} from "react"
+import {Container, Grid, Group, Paper, Text, Title} from "@mantine/core";
+import {selectUser, selectUserError} from "../../redux/features/loginSlice";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {useEffect} from "react";
+import LoginWithGoogle from "./LoginWithGoogle";
 
 interface IProps {
 }
 
 const LoginForm: React.FC<IProps> = () => {
     const HOME = '/'
-    const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    const isLogged = useSelector(selectIsLogged())
+    const isLogged = useSelector(selectUser())
+    const error = useSelector(selectUserError())
 
     useEffect(() => {
         if (isLogged) {
@@ -21,17 +21,17 @@ const LoginForm: React.FC<IProps> = () => {
         }
     }, [])
 
-    const handleClick = () => {
-        dispatch(toggleIsLogged())
-        navigate(HOME)
-    }
-    return <Container>
-        <Group direction='column' position='center'>
-            <Title>Welcome! Please login in</Title>
-            <Button onClick={handleClick}>Login</Button>
-        </Group>
-    </Container>
-
+    return <section
+        style={{height: '100vh', display: 'flex', justifyContent: "center", alignItems: "center"}}>
+        <div>
+            <Title align='center'>Welcome!</Title>
+            <Text color='dimmed' align='center'>please login in</Text>
+            <Group position='center'>
+            <LoginWithGoogle/>
+            </Group>
+            {error && <Text color='red' size='sm'>There was an error, try again!</Text>}
+        </div>
+    </section>
 }
 
 export default LoginForm
