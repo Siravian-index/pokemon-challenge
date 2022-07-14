@@ -1,24 +1,36 @@
 import * as React from "react"
 import {useAppDispatch} from "../../redux/app/store";
 import {IPokemon} from "../../types/IPokemon";
-import {ActionIcon, Badge, Card, Center, Grid, Group, Image, Title, useMantineTheme} from "@mantine/core";
+import {ActionIcon, Badge, Button, Card, Center, Grid, Group, Image, Text, Title, useMantineTheme} from "@mantine/core";
 import {Star, StarOff} from "tabler-icons-react";
 import {toggleFavorite} from "../../redux/features/pokemonSlice";
+import {useLocation, useNavigate} from "react-router-dom";
 
 interface IProps {
     pokemon: IPokemon
 }
 
 
-
 const PokemonCard: React.FC<IProps> = ({pokemon}) => {
-    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+    const location = useLocation()
+    const inPageDetails = location.pathname.includes(pokemon.name)
     const theme = useMantineTheme();
 
+    const handleNavigate = () => {
+        if (!inPageDetails) {
+            navigate(pokemon.name)
+        }
+    }
+
+    const pointer = !inPageDetails ? "pointer" : ''
+
     return <Grid.Col md={3}>
-        <Card shadow="sm" p="lg">
-            <FavoriteStar pokemon={pokemon} />
-            <Card.Section>
+        <Card shadow="sm" p="lg" style={{marginTop: 10}}>
+            <FavoriteStar pokemon={pokemon}/>
+            <Card.Section onClick={() => handleNavigate()} sx={() => ({
+                '&:hover': {cursor: pointer},
+            })}>
                 <Center>
                     <Image src={pokemon.sprite} alt={`${pokemon.name} sprite`} width={300}/>
                 </Center>
@@ -28,8 +40,27 @@ const PokemonCard: React.FC<IProps> = ({pokemon}) => {
             <Group position="center" style={{marginBottom: 5, marginTop: theme.spacing.sm}}>
                 <PokemonTypes pokemon={pokemon}/>
             </Group>
+            {inPageDetails && <ExtraDetails pokemon={pokemon}/>}
         </Card>
     </Grid.Col>
+}
+
+/*
+HELPER FUNCTIONS
+* */
+
+const ExtraDetails: React.FC<IProps> = ({pokemon}) => {
+    const HOME = '/'
+    const navigate = useNavigate()
+    const handleClick = () => navigate(HOME)
+    const theme = useMantineTheme();
+    const isDark = theme.colorScheme === 'dark'
+    return <>
+        <Text color='dimmed' size='sm' align='center'>Pokemon usual weight is: {pokemon.weight} kg</Text>
+        <Button variant={isDark ? 'light' : 'filled'} color="blue" fullWidth onClick={handleClick}>
+            Go back
+        </Button>
+    </>
 }
 
 

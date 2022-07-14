@@ -10,7 +10,7 @@ interface IProps {
 
 const PokemonGrid : React.FC<IProps> = ({list}) => {
     const content = list.map(pokemon => <PokemonCard pokemon={pokemon} key={pokemon.id}/>)
-    return <Grid>
+    return <Grid justify='center'>
         {content}
     </Grid>
 }

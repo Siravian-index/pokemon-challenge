@@ -16,7 +16,7 @@ const AppRoutes: React.FC<IProps> = () => {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/' element={<Dashboard/>} >
             <Route index element={<ListPage/>}/>
-            <Route path=':id' element={<PokemonPage/>}/>
+            <Route path=':name' element={<PokemonPage/>}/>
             <Route path='search' element={<SearchPage/>}/>
             <Route path='favorite' element={<FavoritePage/>}/>
         </Route>
