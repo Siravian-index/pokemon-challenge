@@ -1,6 +1,6 @@
 import React from 'react';
 import {ListDetails, Search, Star} from 'tabler-icons-react';
-import {ThemeIcon, UnstyledButton} from '@mantine/core';
+import {ThemeIcon, UnstyledButton, useMantineTheme} from '@mantine/core';
 import {useNavigate} from "react-router-dom";
 
 interface MainLinkProps {
@@ -11,6 +11,8 @@ interface MainLinkProps {
 
 function MainLink({icon, color, path}: MainLinkProps) {
     const navigate = useNavigate()
+    const theme = useMantineTheme()
+    const isDark = theme.colorScheme === 'dark'
     return (
         <UnstyledButton
             sx={(theme) => ({
@@ -27,9 +29,10 @@ function MainLink({icon, color, path}: MainLinkProps) {
             })}
             onClick={() => navigate(path)}
         >
-            <ThemeIcon color={color} variant="light">
+            <ThemeIcon color={color} variant={`${isDark ? 'light': 'filled'}`}>
                 {icon}
             </ThemeIcon>
+
 
         </UnstyledButton>
     );

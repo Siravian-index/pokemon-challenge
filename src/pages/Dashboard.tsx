@@ -19,7 +19,6 @@ const Dashboard = () => {
             footer={<ShellFooter/>}
             header={<ShellHeader/>}
         >
-            <Text>Resize app to see responsive navbar in action</Text>
             <Outlet/>
         </AppShell>
     );

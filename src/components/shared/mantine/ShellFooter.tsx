@@ -1,11 +1,16 @@
 import * as React from "react"
-import {Footer} from "@mantine/core";
+import {Avatar, Button, Footer, Group, Text} from "@mantine/core";
 
 interface IProps {}
 
 const ShellFooter : React.FC<IProps> = () => {
     return  <Footer height={60} p="md">
-        Application footer
+        <Group>
+            <Avatar radius="xl" alt='Pokemon trainer' />
+            <Text>Ash Ketchum</Text>
+            <Button compact color='red'>Log out</Button>
+        </Group>
+
     </Footer>
 }
 
